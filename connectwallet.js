@@ -7,18 +7,21 @@ function sleep(ms) {
 }
 
 async function main() {
-
-  const browser = await dappeteer.launch(puppeteer, {
+  
+  // Launching browser instance and adding Metamask as extension 
+    const browser = await dappeteer.launch(puppeteer, {
     metamaskVersion: 'v10.8.1',
     headless: false,
     slowMO: 1000 ,
     defaultViewport: null
-  });
+  });                                 
 
-  
+  // Authorizing metaMask with 12 word seceret code 
   const metaMask = await dappeteer.setupMetamask(browser, { seed: 'thought rocket flight draft fold leave syrup tide three present damage rabbit' });
   
   await dappeteer.getMetamaskWindow(browser);
+ 
+  // Adding custom network
   await metaMask.addNetwork(
     {
       networkName: "BSC Testnet",
@@ -28,8 +31,9 @@ async function main() {
 
     });
 
+  // Switching to required testnet 
   await metaMask.switchNetwork('BSC Testnet');
-
+ // Adding custom token 
   await metaMask.addToken('0x5833AE3278eCb638F0b9E3C9324619BA9Ce8C870' );
 
   const page = await browser.newPage();
@@ -42,7 +46,7 @@ async function main() {
   const walletType = await page.$$('div[class="mt-4"]');
   await walletType[0].click();
   //await page.waitForTimeout(4000)
-  await metaMask.approve( {allAccounts: true});
+  await metaMask.approve( {allAccounts: true});  // Connecting Metamsk wallet with Dapp 
  // await page.bringToFront();
   //await metaMask.confirmTransaction();
 
