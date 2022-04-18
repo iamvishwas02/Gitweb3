@@ -16,11 +16,6 @@ async function main() {
     defaultViewport: null
   });                                 
 
-<<<<<<< HEAD
-
-=======
-  // Authorizing metaMask with 12 word seceret code 
->>>>>>> cd6c07f59c9a3f80e21aa5d66f94bb61a0a00556
   const metaMask = await dappeteer.setupMetamask(browser, { seed: 'thought rocket flight draft fold leave syrup tide three present damage rabbit' });
 
   await dappeteer.getMetamaskWindow(browser);
@@ -37,13 +32,8 @@ async function main() {
 
   // Switching to required testnet 
   await metaMask.switchNetwork('BSC Testnet');
-<<<<<<< HEAD
 
   await metaMask.addToken('0x5833AE3278eCb638F0b9E3C9324619BA9Ce8C870');
-=======
- // Adding custom token 
-  await metaMask.addToken('0x5833AE3278eCb638F0b9E3C9324619BA9Ce8C870' );
->>>>>>> cd6c07f59c9a3f80e21aa5d66f94bb61a0a00556
 
   const page = await browser.newPage();
 
@@ -59,7 +49,6 @@ async function main() {
   await page.waitForTimeout(4000)
   const walletType = await page.$$('div[class="mt-4"]');
   await walletType[0].click();
-<<<<<<< HEAD
   await metaMask.approve({ allAccounts: true });
   await page.bringToFront();
   await page.waitForTimeout(8000);
@@ -77,12 +66,3 @@ async function main() {
 
   }
 main()
-=======
-  //await page.waitForTimeout(4000)
-  await metaMask.approve( {allAccounts: true});  // Connecting Metamsk wallet with Dapp 
- // await page.bringToFront();
-  //await metaMask.confirmTransaction();
-
-}
-main()
->>>>>>> cd6c07f59c9a3f80e21aa5d66f94bb61a0a00556
