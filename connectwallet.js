@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const dappeteer = require('@chainsafe/dappeteer');
-
+const { scrollPageToBottom } = require('puppeteer-autoscroll-down');
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -52,14 +52,19 @@ async function main() {
   await metaMask.approve({ allAccounts: true });
   await page.bringToFront();
   await page.waitForTimeout(8000);
+  
+   const lastPosition = await scrollPageToBottom(page, {
+    size: 500,
+    delay: 250
+  })
 
   // Automated test to deposite in pool now -
   const invest = await page.$x('//button[@data-testid="btn"]');
-  invest[10].click();
+  invest[14].click();
   await page.waitForTimeout(2000);
   await page.type('input[data-testid="currency-input"]', '40000');
   const deposite = await page.$x('//button[@data-testid="btn"]');
-  deposite[15].click();
+  deposite[16].click();
   await metaMask.confirmTransaction();
   await page.bringToFront();
   await page.waitForTimeout(20000);
